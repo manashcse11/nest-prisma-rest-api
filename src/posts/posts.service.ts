@@ -10,6 +10,7 @@ export class PostsService {
   create(createPostDto: CreatePostDto) {
     return this.prisma.post.create({
       data: createPostDto,
+      include: { user: true },
     });
   }
 
