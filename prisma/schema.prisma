@@ -20,16 +20,37 @@ model User {
   password     String     
   created_at   DateTime?      @default(now())
   updated_at   DateTime?      @default(now())
+
   posts        Post[]
+  comments     Comment[]
+
+  @@map("users")
 }
 
 model Post {
   id           Int            @id() @default(autoincrement())
   user         User           @relation(fields:[user_id], references: [id])  
   user_id      Int
-  title        String         @unique(map: "users_email_unique")
+  title        String         
   body         String
   published    Boolean        @default(false)     
   created_at   DateTime?      @default(now())
   updated_at   DateTime?      @default(now())
+
+  comments     Comment[]
+
+  @@map("posts")
+}
+
+model Comment {
+  id           Int            @id() @default(autoincrement())
+  user         User           @relation(fields:[user_id], references: [id])  
+  user_id      Int
+  post         Post           @relation(fields: [post_id], references: [id])
+  post_id      Int     
+  body         String 
+  created_at   DateTime?      @default(now())
+  updated_at   DateTime?      @default(now())
+
+  @@map("comments")
 }
