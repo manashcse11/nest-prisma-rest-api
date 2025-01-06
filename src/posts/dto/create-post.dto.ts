@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, IsBoolean, IsOptional } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsDateString } from 'class-validator';
 
 export class CreatePostDto {
   @ApiProperty({ example: '1' })
@@ -15,7 +15,7 @@ export class CreatePostDto {
   body: string;
 
   @ApiProperty()
-  @IsBoolean()
+  @IsDateString()
   @IsOptional()
-  published: boolean;
+  published_at: Date;
 }
